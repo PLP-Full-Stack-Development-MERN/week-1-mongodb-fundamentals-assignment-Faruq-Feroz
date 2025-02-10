@@ -1,84 +1,89 @@
-**Week 1: MongoDB Fundamentals Assignment**
+# MongoDB Fundamentals Assignment
 
-**Objective:**
+## Setup Instructions
 
-- Apply MongoDB concepts learned throughout the week.
-- Practice working with databases, collections, and documents.
-- Develop skills in CRUD operations and data modeling.
+### 1. Install MongoDB
+- Download from [MongoDB Community Server](https://www.mongodb.com/try/download/community)
+- Follow installation guide for your OS
+- Start MongoDB service:
+  ```bash
+  mongod
+  ```
 
-**Instructions:**
+### 2. Run the Assignment Script
 
-1. **Setup MongoDB:**
+Open MongoDB shell:
+```bash
+mongosh
+```
 
-   - Install MongoDB locally or create a free cluster on MongoDB Atlas.
-   - Start the MongoDB server locally or connect to the MongoDB Atlas cluster.
-   - Verify the installation and connection by running:
-     ```sh
-     mongo --version
-     ```
+Copy-paste contents of `mongodb_assignment.js` into the shell
 
-2. **Database and Collection Creation:**
+Or run the script directly:
+```bash
+mongosh < mongodb_assignment.js
+```
 
-   - Create a new database called `library`.
-   - Inside `library`, create a collection named `books`.
+## Operations Overview
 
-3. **Insert Data:**
+### Library Database Structure
+```javascript
+use library
+db.createCollection("books")
+```
 
-   - Insert at least five book records into the `books` collection.
-   - Each book should contain fields such as `title`, `author`, `publishedYear`, `genre`, and `ISBN`.
+### Sample Book Document
+```json
+{
+  "title": "Harry Potter...",
+  "author": "J.K. Rowling",
+  "publishedYear": 1997,
+  "genre": "Fantasy",
+  "ISBN": "9780439708180"
+}
+```
 
-4. **Retrieve Data:**
+### Key Operations
 
-   - Retrieve all books from the collection.
-   - Query books based on a specific author.
-   - Find books published after the year 2000.
+#### CRUD Operations:
+- Insert 5 books
+- Query by author/year
+- Update publication year and ratings
+- Delete by ISBN/genre
 
-5. **Update Data:**
+#### E-commerce Model:
+```javascript
+use ecommerce
+db.createCollection("users")
+db.createCollection("products")
+db.createCollection("orders")
+```
 
-   - Update the `publishedYear` of a specific book.
-   - Add a new field called `rating` to all books and set a default value.
+#### Aggregation:
+- Books per genre
+- Average publication year
+- Top-rated books
 
-6. **Delete Data:**
+#### Indexing:
+```javascript
+db.books.createIndex({ author: 1 })
+```
 
-   - Delete a book by its `ISBN`.
-   - Remove all books of a particular genre.
+## Verification
 
-7. **Data Modeling Exercise:**
+### Using MongoDB Compass
+- Connect to `localhost:27017`
+- Check collections in:
+  - `library` database
+  - `ecommerce` database
 
-   - Create a data model for an e-commerce platform including collections for `users`, `orders`, and `products`.
-   - Decide on appropriate fields and relationships (embedding vs. referencing).
-   - Implement the structure using MongoDB.
+### Using Shell Commands
+```javascript
+// Checking books collection
+use library
+db.books.find().pretty()
 
-8. **Aggregation Pipeline:**
-
-   - Use aggregation to find the total number of books per genre.
-   - Calculate the average published year of all books.
-   - Identify the top-rated book.
-
-9. **Indexing:**
-
-   - Create an index on the `author` field to optimize query performance.
-   - Explain the benefits of indexing in MongoDB.
-
-10. **Testing:**
-
-   - Use the MongoDB shell or Compass to verify the inserted and updated records.
-   - Ensure all queries return the expected results.
-
-11. **Documentation:**
-
-   - Create a `README.md` file with step-by-step instructions on setting up and running your database.
-
-12. **Submission:**
-
-   - Push your code and scripts to your GitHub repository.
-
-**Evaluation Criteria:**
-
-- Proper setup and connection of MongoDB.
-- Accurate implementation of CRUD operations.
-- Correct data modeling with appropriate relationships.
-- Use of aggregation for insightful queries.
-- Clear and concise documentation.
-- Proper indexing implementation.
-
+// Checking ecommerce collections
+use ecommerce
+db.users.find()
+db.products.find()
